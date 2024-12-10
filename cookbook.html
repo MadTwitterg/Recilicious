@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        if (localStorage.getItem('recilicious-theme') === 'dark') {
+            document.documentElement.classList.add('dark-theme');
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cookbook - Recilicious</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .cookbook-header {
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--text-color);
+        }
+
+        .cookbook-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cookbook-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .cookbook-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+
+        .cookbook-stats {
+            display: flex;
+            gap: 2rem;
+            color: var(--text-color);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-item i {
+            color: var(--gradient-start);
+        }
+
+        .cookbook-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cookbook-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .recipe-card {
+            position: relative;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--card-background);
+            border: 2px solid #ff4444;
+            color: #ff4444;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .remove-btn:hover {
+            background: #ff4444;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3);
+        }
+
+        .remove-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .remove-btn:hover i {
+            transform: rotate(90deg);
+        }
+
+        @keyframes slideOut {
+            0% { transform: translateX(0); opacity: 1; }
+            100% { transform: translateX(100%); opacity: 0; }
+        }
+
+        .recipe-card.removing {
+            animation: slideOut 0.5s ease forwards;
+        }
+
+        .vhs-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 0;
+            background: var(--background-color);
+        }
+
+        .vhs-icon {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .vhs-icon:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-utensils"></i>
+            <span>Recilicious</span>
+        </div>
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="search.html">Search</a>
+            <a href="cookbook.html" class="active">Cookbook</a>
+            <a href="account.html">Account</a>
+        </div>
+    </nav>
+    <div class="vhs-container">
+        <img src="vhs_icon.png" alt="VHS Icon" class="vhs-icon">
+    </div>
+
+    <main>
+        <div class="cookbook-header">
+            <h1>My Cookbook</h1>
+            <p>Your personal collection of favorite recipes</p>
+        </div>
+
+        <div class="cookbook-controls">
+            <div class="cookbook-stats">
+                <div class="stat-item">
+                    <i class="fas fa-bookmark"></i>
+                    <span>Saved Recipes: <strong id="savedCount">0</strong></span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Shared: <strong id="sharedCount">0</strong></span>
+                </div>
+            </div>
+            <div class="cookbook-actions">
+                <button class="btn btn-primary" onclick="shareCookbook()">
+                    <i class="fas fa-share-alt"></i> Share Cookbook
+                </button>
+                <button class="btn btn-danger" onclick="clearCookbook()">
+                    <i class="fas fa-trash"></i> Clear All
+                </button>
+            </div>
+        </div>
+
+        <div class="cookbook-grid" id="savedRecipes">
+            <!-- Saved recipes will be loaded here -->
+        </div>
+    </main>
+
+    <script type="module" src="config.js"></script>
+    <script type="module" src="db-service.js"></script>
+    <script type="module" src="cookbook.js"></script>
+    <script type="module" src="theme.js"></script>
+</body>
+</html> 

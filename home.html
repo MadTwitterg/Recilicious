@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        if (localStorage.getItem('recilicious-theme') === 'dark') {
+            document.documentElement.classList.add('dark-theme');
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recilicious - Your Recipe Companion</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        if (localStorage.getItem('recilicious-theme') === 'dark') {
+            document.documentElement.classList.add('dark-theme');
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-utensils"></i>
+            <span>Recilicious</span>
+        </div>
+        <div class="nav-links">
+            <a href="home.html" class="active">Home</a>
+            <a href="search.html">Search</a>
+            <a href="cookbook.html">Cookbook</a>
+            <a href="account.html">Account</a>
+        </div>
+    </nav>
+    <div class="vhs-container">
+        <img src="vhs_icon.png" alt="VHS Icon" class="vhs-icon">
+    </div>
+
+    <main>
+        <div class="recipe-grid" id="recipeGrid">
+            <p>Loading recipes...</p>
+        </div>
+    </main>
+
+    <script type="module" src="config.js"></script>
+    <script type="module" src="home.js"></script>
+    <script type="module" src="time.js"></script>
+    <script type="module" src="theme.js"></script>
+</body>
+</html> 

@@ -1,0 +1,707 @@
+:root {
+    --gradient-start: #4CAF50;
+    --gradient-end: #45a049;
+    --background-color: #f7f7f7;
+    --card-background: white;
+    --text-color: #333;
+    --text-muted: #666;
+    --border-color: #ddd;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --background-pattern-light: url('https://media.istockphoto.com/id/876700382/vector/kitchenware-background.jpg?s=612x612&w=0&k=20&c=neJUuoTB9TbibAvWi5s_ilOA42h_6De9zP8LMsdnwtI=');
+    --background-pattern-dark: url('https://media.istockphoto.com/id/876700382/vector/kitchenware-background.jpg?s=612x612&w=0&k=20&c=neJUuoTB9TbibAvWi5s_ilOA42h_6De9zP8LMsdnwtI=');
+    --background-pattern-opacity: 0.05;
+}
+
+.dark-theme {
+    --gradient-start: #2E7D32;
+    --gradient-end: #1B5E20;
+    --background-color: #1a1a1a;
+    --card-background: #2d2d2d;
+    --text-color: #ffffff;
+    --text-muted: #bbbbbb;
+    --border-color: #404040;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --background-pattern-opacity: 0.03;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    position: relative;
+    min-height: 100vh;
+    background-color: var(--background-color);
+    transition: background-color 0.3s ease;
+}
+
+/* Background pattern overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--background-pattern-light);
+    opacity: var(--background-pattern-opacity);
+    z-index: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, background-image 0.3s ease;
+}
+
+.dark-theme body::before {
+    background-image: var(--background-pattern-dark);
+}
+
+/* Ensure all main content is above the background */
+main, .login-container, .password-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Remove individual background patterns from pages */
+.login-container::before,
+main::before {
+    display: none;
+}
+
+/* Navbar Styles */
+.navbar {
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    transform: translateY(0);
+}
+
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.nav-links a.active {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Main Content Styles */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Recipe Grid */
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.recipe-card {
+    background: var(--card-background);
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+}
+
+.recipe-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.recipe-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.recipe-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 2.8em;
+}
+
+.recipe-meta {
+    margin-top: auto;
+    background: var(--background-color);
+    padding: 1rem;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.meta-item i {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.meta-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.meta-value {
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+/* Button Styles */
+.btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, var(--gradient-end), var(--gradient-start));
+}
+
+.btn-danger {
+    background-color: #ff4444;
+    color: white;
+}
+
+/* Login/Signup Styles */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--background-color);
+}
+
+.login-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Profile Styles */
+.profile-container {
+    background: var(--card-background);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    color: var(--text-color);
+}
+
+.profile-header {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.profile-picture {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.change-photo {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--background-color);
+    color: var(--text-color);
+}
+
+.stat-card h3 {
+    color: var(--gradient-start);
+}
+
+/* Search Styles */
+.search-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.search-bar {
+    display: flex;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    padding: 0 1rem;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border-radius: 25px;
+    border: 2px solid var(--gradient-start);
+    background: var(--card-background);
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.search-btn {
+    padding: 0 2rem;
+    border-radius: 25px;
+    background: var(--gradient-start);
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    background: var(--gradient-end);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark-theme .search-btn {
+    background: var(--gradient-start);
+    color: white;
+}
+
+.dark-theme .search-btn:hover {
+    background: var(--gradient-end);
+}
+
+/* Error Message */
+.error-message {
+    color: #ff4444;
+    background: var(--card-background);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+/* Add to your existing styles.css */
+.recipe-details {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.recipe-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.recipe-image {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.recipe-summary {
+    margin: 1rem 0;
+    line-height: 1.6;
+}
+
+.ingredients-section,
+.instructions-section,
+.wine-pairing-section {
+    margin-bottom: 2rem;
+}
+
+.ingredients-list {
+    list-style: none;
+    padding: 0;
+}
+
+.ingredient-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+}
+
+.instruction-step {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--background-color);
+    border-radius: 4px;
+}
+
+.step-number {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-right: 1rem;
+}
+
+.recipe-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.tag {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.recipe-source {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .recipe-header {
+        grid-template-columns: 1fr;
+    }
+}
+
+.no-recipes {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.recipe-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.recipe-actions .btn {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.btn-danger {
+    background: #ff4444;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #cc0000;
+}
+
+/* Add theme toggle button styles */
+.theme-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    margin-left: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    transform: translateY(0);
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon spin animation */
+@keyframes spinIcon {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Apply animation to the icon only */
+.theme-toggle i {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle.spinning i {
+    animation: spinIcon 0.5s ease-in-out;
+}
+
+/* Account page specific styles */
+.profile-sidebar {
+    background: var(--card-background);
+    color: var(--text-color);
+}
+
+.profile-info h2,
+.profile-info p {
+    color: var(--text-color);
+}
+
+.activity-item {
+    background: var(--background-color);
+    color: var(--text-color);
+}
+
+.activity-time {
+    color: var(--text-muted);
+}
+
+/* Form styles */
+.form-group label {
+    color: var(--text-color);
+}
+
+.form-group input {
+    background: var(--card-background);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.form-group input:focus {
+    border-color: var(--gradient-start);
+    outline: none;
+}
+
+/* Search input placeholder color */
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Profile actions */
+.profile-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+/* Update meta items for better visibility */
+.meta-item {
+    background: var(--background-color);
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+.meta-item i {
+    color: var(--gradient-start);
+}
+
+/* Search button specific styles */
+.search-btn {
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+    color: white;
+    border: none;
+    padding: 0 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    background: linear-gradient(to right, var(--gradient-end), var(--gradient-start));
+    transform: translateY(-2px);
+}
+
+/* Update navbar buttons for better visibility */
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Input focus styles */
+input:focus {
+    outline: none;
+    border-color: var(--gradient-start);
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+/* Common button shine effect */
+.btn-primary, 
+.save-btn, 
+.back-btn, 
+.search-btn, 
+.voice-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shine effect */
+.btn-primary::before, 
+.save-btn::before, 
+.back-btn::before, 
+.search-btn::before, 
+.voice-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+/* Shine animation on hover */
+.btn-primary:hover::before, 
+.save-btn:hover::before, 
+.back-btn:hover::before, 
+.search-btn:hover::before, 
+.voice-btn:hover::before {
+    left: 100%;
+}
+
+/* Common hover effect */
+.btn-primary:hover, 
+.save-btn:hover, 
+.back-btn:hover, 
+.search-btn:hover, 
+.voice-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(var(--gradient-start-rgb), 0.3);
+}
+
+/* Update VHS icon styles in styles.css */
+.vhs-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 0;
+    background: transparent;
+    position: relative;
+    z-index: 2;
+}
+
+.vhs-icon {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.vhs-icon:hover {
+    transform: scale(1.1);
+}
